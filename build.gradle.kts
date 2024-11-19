@@ -27,8 +27,12 @@ dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.server.netty)
     implementation(libs.logback.classic)
-    implementation("io.insert-koin:koin-ktor:3.1.3")
-    implementation("io.insert-koin:koin-logger-slf4j:3.1.3")
+    implementation("io.insert-koin:koin-core:3.4.0")
+    implementation("io.insert-koin:koin-ktor:3.4.0")
+    implementation("io.insert-koin:koin-logger-slf4j:3.4.0")
+
+    implementation("io.ktor:ktor-server-default-headers-jvm:3.0.1")
+
 
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
