@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.plugins.configureDefaultHeader
 import com.example.plugins.configureKoin
 import com.example.plugins.configureMonitoring
 import com.example.plugins.configureRouting
@@ -11,6 +12,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+    //configureDefaultHeader()
     configureKoin()
     configureSerialization()
     configureMonitoring()
