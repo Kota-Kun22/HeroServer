@@ -12,9 +12,9 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    //configureDefaultHeader()
     configureKoin()
     configureSerialization()
     configureMonitoring()
     configureRouting()
+    configureDefaultHeader()
 }
