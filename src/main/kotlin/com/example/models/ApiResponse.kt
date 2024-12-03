@@ -10,6 +10,6 @@ data class ApiResponse(
     val prevPage :Int?=null,
     val nextPage :Int?=null,
 
-    val heros :List<Hero> = emptyList(),
+    val heroes :List<Hero> = emptyList(),
 
 )

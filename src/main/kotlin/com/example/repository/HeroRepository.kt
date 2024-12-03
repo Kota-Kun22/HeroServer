@@ -5,7 +5,7 @@ import com.example.models.Hero
 
 interface HeroRepository {
 
-    val heross: Map<Int,List<Hero>>
+    val heroes: Map<Int,List<Hero>>
 
     val page1: List<Hero>
     val page2: List<Hero>
