@@ -8,7 +8,7 @@ fun Route.root() {
 
     get("/"){
         call.respond(
-            message = "Welcome to my Hero API !!! ",
+            message = "Welcome to my Hero API !!!",
             status = io.ktor.http.HttpStatusCode.OK
         )
 
