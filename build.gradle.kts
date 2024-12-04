@@ -32,6 +32,8 @@ dependencies {
     implementation("io.insert-koin:koin-logger-slf4j:3.4.0")
 
     implementation("io.ktor:ktor-server-default-headers-jvm:3.0.1")
+    implementation("io.ktor:ktor-server-status-pages:3.0.1")
+
 
 
     testImplementation(libs.ktor.server.test.host)

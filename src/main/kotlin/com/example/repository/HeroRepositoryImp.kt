@@ -411,6 +411,9 @@ class HeroRepositoryImp() : HeroRepository {
 
         )
     }
+
+
+
     private fun calculatePage(page:Int): Map<String, Int?> {
         var previousPage:Int?= page
         var nextPage:Int?= page
@@ -432,9 +435,36 @@ class HeroRepositoryImp() : HeroRepository {
         return mapOf(PREVIOUS_PAGE_KEY to previousPage, NEXT_PAGE_KEY to nextPage)
     }
 
-    override fun searchHeroes(name: String): ApiResponse {
-        TODO("Not yet implemented")
-    }
+    override suspend fun searchHeroes(name: String?): ApiResponse {
 
+        return ApiResponse(
+            success = true,
+            message = "OK",
+            heroes = findHeroes(query = name)
+        )
+
+    }
+    // Function to find heroes by name
+    private fun findHeroes(query: String?): List<Hero> {
+        // A mutable list to store the found heroes
+        val foundHeroes = mutableListOf<Hero>()
+
+        // Check if the name is null or empty
+        return if (!query.isNullOrEmpty()) {
+            // Iterate through the map of heroes
+            for ((key, heroList) in heroes) {
+                // Iterate through each hero in the current list
+                for (hero in heroList) {
+                    // Check if the hero's name contains the search query (case-insensitive)
+                    if (hero.name.lowercase().contains(query.lowercase())) {
+                        foundHeroes.add(hero) // Add the hero to the list
+                    }
+                }
+            }
+            foundHeroes // Return the list of found heroes
+        } else {
+            emptyList() // Return an empty list if the name is null or empty
+        }
+    }
 
 }
