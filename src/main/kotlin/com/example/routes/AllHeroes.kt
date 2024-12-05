@@ -12,6 +12,9 @@ import io.ktor.server.routing.get
 import kotlinx.serialization.json.Json
 import org.koin.ktor.ext.inject
 
+/**
+ *
+ */
 fun Route.getAllHeroes(){
 
     val heroRepositoroy : HeroRepository by inject()

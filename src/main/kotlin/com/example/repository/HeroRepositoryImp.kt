@@ -406,7 +406,7 @@ class HeroRepositoryImp() : HeroRepository {
             success = true,
             message = "OK",
             prevPage = calculatePage(page =page)[PREVIOUS_PAGE_KEY],
-            nextPage=calculatePage(page= page)[NEXT_PAGE_KEY],
+            nextPage=calculatePage(page = page)[NEXT_PAGE_KEY],
             heroes= heroes[page]!!//we have checked and specified this condition in AllHeros
 
         )
@@ -414,7 +414,7 @@ class HeroRepositoryImp() : HeroRepository {
 
 
 
-    private fun calculatePage(page:Int): Map<String, Int?> {
+     override fun calculatePage(page: Int): Map<String, Int?> {
         var previousPage:Int?= page
         var nextPage:Int?= page
         if(page in 1..4){
