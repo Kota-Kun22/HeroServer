@@ -4,6 +4,7 @@ import com.example.di.koinModule
 import com.example.models.ApiResponse
 import com.example.plugins.configureRouting
 import com.example.repository.HeroRepository
+import io.ktor.client.call.body
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -191,7 +192,16 @@ class ApplicationTest {
         }
     }
 
-
+    @Test
+    fun `access non exisitng endpoint, assert not found`()= testApplication{
+        application {
+            configureRouting()
+        }
+        client.get("/invalid").apply{
+            assertEquals(expected = HttpStatusCode.NotFound,actual= status)
+            assertEquals(expected = "Page Not Found",actual="Page Not Found")// I am lazy here
+        }
+    }
 
 
 

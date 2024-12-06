@@ -14,7 +14,7 @@ fun Application.configureStatusPages() {
 
     install(StatusPages) {
         status(HttpStatusCode.NotFound) {
-         call.respondText(text="Not Found", status = HttpStatusCode.NotFound )
+         call.respondText(text=" Page Not Found", status = HttpStatusCode.NotFound )
         }
 
 
