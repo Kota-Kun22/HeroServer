@@ -45,15 +45,13 @@ class ApplicationTest {
         }
     }
 
-    
     @Test
     fun `access all heroes endpoint,assert correct information`() = testApplication {
         application {
-           // configureKoin()
+            //configureKoin()
             configureRouting()
         }
         client.get("/boruto/heroes") {
-//            header(HttpHeaders.Accept, ContentType.Application.Json.toString())
         }.apply {
 //            println("Response Status: ${status}")
 
@@ -77,7 +75,6 @@ class ApplicationTest {
         }
 
     }
-
 
     @Test
     fun `access all heroes endpoint,query all pages ,assert correct information`() = testApplication {
@@ -108,13 +105,54 @@ class ApplicationTest {
                 val actual = Json.decodeFromString<ApiResponse>(bodyAsText())
 
                 assertEquals(expected = expected, actual = actual)
-
-
             }
-
-
         }
 
     }
+
+    @Test
+    fun `access all heroes endpoints, query non existing page number ,assert error`() = testApplication {
+        application {
+            configureRouting()
+
+        }
+        println("TILL HERE OK")//ok
+        client.get("/boruto/heroes?page=6").apply{
+
+            println("Response Status1 : ${status}")//ok
+            assertEquals(expected = HttpStatusCode.NotFound, actual = status)
+
+            println("Response Status2 : ${status}")
+
+            val expected= ApiResponse(success = false, message = "Heroes not found")
+
+            val responseBody = bodyAsText()
+
+            println("Response Body: $responseBody")
+
+            val actual = Json.decodeFromString<ApiResponse>(responseBody)
+
+            println("THE EXPECTED IS ${expected}")
+           println("THE ACTUAL IS ${actual}")
+           assertEquals(expected = expected, actual = actual)
+        }
+    }
+
+    @Test
+    fun `access all heroes endpoints, query invalid page number ,assert error`() = testApplication {
+        application{
+            configureRouting()
+        }
+        client.get("/boruto/heroes?page=invalid").apply{
+            assertEquals(expected = HttpStatusCode.BadRequest, actual = status)
+            val expected= ApiResponse(success = false, message = "sorry only numbers are allowed")
+            val responseBody = bodyAsText()
+            val actual = Json.decodeFromString<ApiResponse>(responseBody)
+            assertEquals(expected = expected, actual = actual)
+        }
+    }
+
+
+
 }
 

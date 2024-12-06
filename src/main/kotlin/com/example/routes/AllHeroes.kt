@@ -33,15 +33,23 @@ fun Route.getAllHeroes(){
            call.respondText(text = jsonResponse, contentType = ContentType.Application.Json, status = HttpStatusCode.OK)
 
        }catch (e:NumberFormatException){
-           call.respond(
-               message = ApiResponse( success = false, message = "sorry only numbers are allowed",),
-               status= HttpStatusCode.BadRequest
-           )
+           val errorResponse = ApiResponse(success = false, message = "sorry only numbers are allowed")
+           val jsonResponse = Json.encodeToString(ApiResponse.serializer(), errorResponse)
+           call.respondText(text = jsonResponse, contentType = ContentType.Application.Json, status = HttpStatusCode.BadRequest)
+
        }catch (e:IllegalArgumentException){
-           call.respond(
-               message= ApiResponse(success= false,message = " Heroes not found and only 1-5 numbers are allowed"),
-               status = HttpStatusCode.NotFound
+           // Handle out-of-range page numbers
+           val errorResponse = ApiResponse(
+               success = false,
+               message = "Heroes not found"
            )
+           val jsonResponse = Json.encodeToString(ApiResponse.serializer(), errorResponse)
+
+           call.respondText(
+               text = jsonResponse,
+               contentType = ContentType.Application.Json,
+               status = HttpStatusCode.NotFound)
+
        }
     }
 }
