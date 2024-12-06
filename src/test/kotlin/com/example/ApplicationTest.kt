@@ -165,6 +165,7 @@ class ApplicationTest {
         }
 
     }
+
     @Test
     fun `access search hero endpoint, query empty hero list , assert empty list as a result`()= testApplication{
         application {
@@ -177,6 +178,20 @@ class ApplicationTest {
 
         }
     }
+
+    @Test
+    fun ` access search hero endpoint, query non exisitng heroes ,assert empty list as a result`()= testApplication{
+        application {
+            configureRouting()
+        }
+        client.get("/boruto/heroes/search?name=invalid").apply{
+            assertEquals(expected = HttpStatusCode.OK,actual= status)
+            val actual = Json.decodeFromString<ApiResponse>(bodyAsText()).heroes
+            assertEquals(expected= emptyList() ,actual= actual)
+        }
+    }
+
+
 
 
 
