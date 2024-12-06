@@ -2,7 +2,6 @@ package com.example
 
 import com.example.di.koinModule
 import com.example.models.ApiResponse
-import com.example.plugins.configureKoin
 import com.example.plugins.configureRouting
 import com.example.repository.HeroRepository
 import io.ktor.client.request.*
@@ -151,6 +150,23 @@ class ApplicationTest {
             assertEquals(expected = expected, actual = actual)
         }
     }
+
+    @Test
+    fun `access search hero endpoint, query hero name, assert single hero result`()=testApplication{
+       application {
+           configureRouting()
+       }
+        client.get("/boruto/heroes/search?name=sa").apply{
+             assertEquals(expected = HttpStatusCode.OK,actual= status)
+
+            val actual= Json.decodeFromString<ApiResponse>(bodyAsText()).heroes.size
+            assertEquals(expected= 3 ,actual= actual)
+
+        }
+
+    }
+
+
 
 
 
